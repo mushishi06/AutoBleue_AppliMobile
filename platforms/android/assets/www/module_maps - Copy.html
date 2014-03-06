@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>Maps jq</title>
+   
+    <style>
+      html, body, #moduletable #map {
+		position:absolute;
+		top:0%;
+		left:1%;
+        width: 98%;
+        height: 98%;
+      }
+	  #gmap-unlogged-user {
+		position:absolute;
+		left:1%; 
+		height:79%; 
+		width:98%; 
+		margin-top:20px;
+		}
+	  #parent-info-map {
+		display:none;
+	  }
+	  #content-station {
+		position:absolute; 
+		width:100%; 
+	
+		top:20px; 
+		padding-bottom:20px;
+	  }
+	  #info-station {
+		position:absolute;
+		top:80%; 
+		width:100%;
+		left:1%;	
+		}
+	</style>
+	 <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+	 <script src="js/module_maps.js" type="text/javascript"></script>
+	<script type="text/javascript" src="js/jquery.gmap.min.js"></script>
+    <script>
+jQuery(document).ready(function(){
+	
+	function Icon(path)
+	{
+		this.image		= path;
+		this.iconsize	= [26, 26];
+	}
+	
+	function Station(name, loc, lat, lon, cp, commune, mod)
+ {
+    this.name = name;
+    this.loc = loc;
+	this.lat = lat;
+	this.lon = lon;
+	this.cp = cp;
+	this.commune = commune;
+	this.mod = mod;
+	this.modtxt = ["Peugeot iOn", "Mia", "Utilitaire / Commercial van"];
+	this.icon	=	new Icon('./images/gmap2.gif')
+ }
+	
+	/* ---------------------------------------------------------------------- */
+	/*	Google Maps
+	/* ---------------------------------------------------------------------- */
+	
+	// Needed variables
+	var $map 				= $('#map'),
+		$address 			= '79 Boulevard Gambetta 06000 Nice, France';
+		$address2			= '6 rue Pertinax 06000 Nice, France';
+
+	var $id_00				= new Station("",
+										"",
+										'',
+										'',
+										"",
+										"",
+										[1,0,0]
+									);
+	var $id_01				= new Station("Les Muriers",
+										"46 Boulevard Maréchal Juin",
+										'43.658088',
+										'7.150758',
+										"06 800",
+										"CAGNES SUR MER",
+										[1,0,0]
+									);
+	var $id_02				= new Station("Place de Gaulle",
+										"6 Avenue de l'Hôtel des Postes",
+										'43.663346',
+										'7.150721',
+										"06 800",
+										"CAGNES SUR MER",
+										[1,0,0]
+									);
+	var $id_03				= new Station("Général Leclerc",
+										"22 Avenue du Général Leclerc",
+										'43.658313',
+										'7.163659',
+										"06 800",
+										"CAGNES SUR MER",
+										[1,0,0]
+									);
+	var $id_04				= new Station("Marechal Juin",
+										"4 Place du Marechal Juin",
+										'43.723105',
+										'7.108012',
+										"06 140",
+										"VENCE",
+										[1,0,0]
+									);
+	var $id_05				= new Station("Square Benes",
+										"990 Avenue du Général de Gaulle",
+										'43.6709313',
+										'7.1907633',
+										"06 700",
+										"SAINT LAURENT DU VAR",
+										[1,0,1]
+									);
+	var $id_06				= new Station("Roure",
+										"Chemin du Roure",
+										'43.773494',
+										'7.191141',
+										"06 510",
+										"CARROS",
+										[1,0,0]
+									);
+	var $id_07				= new Station("Colomars",
+										"12 Rue Etienne Curti",
+										'43.762912',
+										'7.221402',
+										"06 670",
+										"COLOMARS",
+										[1,0,0]
+									);
+	var $id_08				= new Station("Suarez",
+										"15 Boulevard François Suarez",
+										'43.741712',
+										'7.312887',
+										"06 340",
+										"LA TRINITE",
+										[1,0,0]
+									);
+	var $id_09				= new Station("De Gaulle",
+										"7 Avenue du Général de Gaulle",
+										'43.70231',
+										'7.309186',
+										"06 230",
+										"VILLEFRANCHE SUR MER",
+										[1,0,0]
+									);
+	var $id_10				= new Station("Marinoni",
+										"36-38 Boulevard Marinoni",
+										'43.706872',
+										'7.330342',
+										"06 310",
+										"BEAULIEU SUR MER",
+										[1,0,0]
+									);
+	var $id_11				= new Station("Aéroport T2",
+										"Terminal 2 Gare Routière",
+										'43.65952',
+										'7.204195',
+										"06 200",
+										"NICE",
+										[1,0,0]
+									);
+	var $id_12				= new Station("Route de Grenoble",
+										"58 Route de Grenoble",
+										'43.671062',
+										'7.208787',
+										"06 200",
+										"NICE",
+										[1,0,0]
+									);
+	var $id_13				= new Station("René Cassin",
+										"8 Rue Marie Bashkirtseff",
+										'43.67441',
+										'7.226218',
+										"06 200",
+										"NICE",
+										[1,0,1]
+									);
+	var $id_14				= new Station("Sainte-Hélène",
+										"192 Avenue de la Californie",
+										'43.682553',
+										'7.232198',
+										"06 200",
+										"NICE",
+										[1,1,0]
+									);
+	var $id_15				= new Station("Napoléon III",
+										"72 Boulevard Napoléon III",
+										'43.68655',
+										'7.226285',
+										"06 200",
+										"NICE",
+										[1,0,0]
+									);
+	var $id_16				= new Station("Fabron",
+										"195 Promenade des Anglais",
+										'43.68693',
+										'7.238162',
+										"06 200",
+										"NICE",
+										[1,0,0]
+									);
+	var $id_17				= new Station("Californie",
+										"28 Avenue de la Californie",
+										'43.6904',
+										'7.2425705',
+										"06 200",
+										"NICE",
+										[1,0,1]
+									);
+	var $id_18				= new Station("La Bornala",
+										"50 Avenue de la Bornala",
+										'43.695444',
+										'7.236177',
+										"06 200",
+										"NICE",
+										[1,0,0]
+									);
+	var $id_19				= new Station("Madeleine",
+										"167-169 Bd de la Madeleine",
+										'43.704521',
+										'7.233519',
+										"06 000",
+										"NICE",
+										[1,0,0]
+									);
+	var $id_20				= new Station("Rosa Bonheur",
+										"148 Rue de France",
+										'43.692918',
+										'7.248699',
+										"06 000",
+										"NICE",
+										[1,0,0]
+									);
+	var $id_21				= new Station("Fleurs",
+										"30 Avenue des Fleurs",
+										'43.698007',
+										'7.251876',
+										"06 000",
+										"NICE",
+										[1,1,0]
+									);
+	var $id_22				= new Station("Grosso",
+										"6 Rue des Potiers",
+										'43.69459',
+										'7.25317',
+										"06 000",
+										"NICE",
+										[1,0,0]
+									);
+	var $id_23				= new Station("Eglise Saint Pierre d'Arène",
+										"81 Rue de France",
+										'43.6954310',
+										'7.2571740',
+										"06 000",
+										"NICE",
+										[1,0,0]
+									);
+	var $id_24				= new Station("Saint Philippe",
+										"56 Rue Saint Philippe",
+										'43698481',
+										'7.255614',
+										"06 000",
+										"NICE",
+										[1,0,1]
+									);
+	var $id_25				= new Station("Châteauneuf",
+										"22 Rue Châteauneuf",
+										'43.700711',
+										'7.253683',
+										"06 000",
+										"NICE",
+										[1,0,0]
+									);
+	var $id_26				= new Station("Tzarewitch",
+										"20 Bd du Tzarewitch",
+										'43.702738',
+										'7.253594',
+										"06 000",
+										"NICE",
+										[0,0,0]
+									);
+	var $id_27				= new Station("Victor Hugo",
+										"Angle du 53 Boulevard Victor Hugo",
+										'43.698036',
+										'7.258967',
+										"06 000",
+										"NICE",
+										[1,0,0]
+									);
+	var $id_28				= new Station("Verdi",
+										"31 Rue Verdi",
+										'43.69958',
+										'7.258172',
+										"06 000",
+										"NICE",
+										[1,0,0]
+									);
+	var $id_29				= new Station("Congrès",
+										"11 bis Rue du Congrès",
+										'43.6976043',
+										'7.262856',
+										"06 000",
+										"NICE",
+										[1,0,0]
+									);
+
+	/*
+	$id_01.name				= "Maréchal Juin";
+	$id_01.loc				= "4 Place du Maréchal Juin";
+	$id_01.lat				= '43.723105'
+	$id_01.lon				= '7.108012'
+	$id_01.cp				= "06140";
+	$id_01.commune			= "VENCE";
+	$id_01.mod				= ["Peugeot iOn"];
+	*/
+	
+	$map.gMap({
+		zoom: 12,	
+		latitude: 43.7106981, 
+		longitude: 7.244906,
+	//	maptype: google.maps.MapTypeId.TERRAIN,
+		scaleControl:           false,
+		streetViewControl:      false,
+		markers: [
+			{ 
+			'address' : $address,
+			'html' : "test -> html",
+			'title' : "test -> title",
+			icon: {
+                image: './images/gmap_pin_grey.png',
+                iconsize: [26, 46],
+                iconanchor: [12,46],
+                infowindowanchor: [12, 0],
+				},
+			},
+			{ 'address' : $address2 ,
+			icon: {
+                image: './images/gmap2.gif',
+                iconsize: [26, 26],
+              //  iconanchor: [12,46],
+               // infowindowanchor: [12, 0],
+				},
+			},
+			{
+			 latitude: $id_01.lat,
+             longitude: $id_01.lon,
+			 'html' :	$id_01.commune + " - " + $id_01.name + "<br> " + $id_01.loc,
+			 'title' :	$id_01.commune + " - " + $id_01.name,
+			 icon	: $id_01.icon,
+			},
+			{
+			 latitude: $id_02.lat,
+             longitude: $id_02.lon,
+			 'html' :	$id_02.commune + " - " + $id_02.name + "<br> " + $id_02.loc,
+			 'title' :	$id_02.commune + " - " + $id_02.name,
+			 icon	: $id_02.icon,
+			},
+			{
+			 latitude: $id_03.lat,
+             longitude: $id_03.lon,
+			 'html' :	$id_03.commune + " - " + $id_03.name + "<br> " + $id_03.loc,
+			 'title' :	$id_03.commune + " - " + $id_03.name,
+			 icon	: $id_03.icon,
+			},
+			{
+			 latitude: $id_04.lat,
+             longitude: $id_04.lon,
+			 'html' :	$id_04.commune + " - " + $id_04.name + "<br> " + $id_04.loc,
+			 'title' :	$id_04.commune + " - " + $id_04.name,
+			 icon	: $id_04.icon,
+			},
+			{
+			 latitude: $id_05.lat,
+             longitude: $id_05.lon,
+			 'html' :	$id_05.commune + " - " + $id_05.name + "<br> " + $id_05.loc,
+			 'title' :	$id_05.commune + " - " + $id_05.name,
+			 icon	: $id_05.icon,
+			},
+			{
+			 latitude: $id_06.lat,
+             longitude: $id_06.lon,
+			 'html' :	$id_06.commune + " - " + $id_06.name + "<br> " + $id_06.loc,
+			 'title' :	$id_06.commune + " - " + $id_06.name,
+			 icon	: $id_06.icon,
+			},
+			{
+			 latitude: $id_07.lat,
+             longitude: $id_07.lon,
+			 'html' :	$id_07.commune + " - " + $id_07.name + "<br> " + $id_07.loc,
+			 'title' :	$id_07.commune + " - " + $id_07.name,
+			 icon	: $id_07.icon,
+			},
+			{
+			 latitude: $id_08.lat,
+             longitude: $id_08.lon,
+			 'html' :	$id_08.commune + " - " + $id_08.name + "<br> " + $id_08.loc,
+			 'title' :	$id_08.commune + " - " + $id_08.name,
+			 icon	: $id_08.icon,
+			},
+			{
+			 latitude: $id_09.lat,
+             longitude: $id_09.lon,
+			 'html' :	$id_09.commune + " - " + $id_09.name + "<br> " + $id_09.loc,
+			 'title' :	$id_09.commune + " - " + $id_09.name,
+			 icon	: $id_09.icon,
+			},
+			{
+			 latitude: $id_10.lat,
+             longitude: $id_10.lon,
+			 'html' :	$id_10.commune + " - " + $id_10.name + "<br> " + $id_10.loc,
+			 'title' :	$id_10.commune + " - " + $id_10.name,
+			 icon	: $id_10.icon,
+			},
+			{
+			 latitude: $id_11.lat,
+             longitude: $id_11.lon,
+			 'html' :	$id_11.commune + " - " + $id_11.name + "<br> " + $id_11.loc,
+			 'title' :	$id_11.commune + " - " + $id_11.name,
+			 icon	: $id_11.icon,
+			},
+			{
+			 latitude: $id_12.lat,
+             longitude: $id_12.lon,
+			 'html' :	$id_12.commune + " - " + $id_12.name + "<br> " + $id_12.loc,
+			 'title' :	$id_12.commune + " - " + $id_12.name,
+			 icon	: $id_12.icon,
+			},
+			{
+			 latitude: $id_13.lat,
+             longitude: $id_13.lon,
+			 'html' :	$id_13.commune + " - " + $id_13.name + "<br> " + $id_13.loc,
+			 'title' :	$id_13.commune + " - " + $id_13.name,
+			 icon	: $id_13.icon,
+			},
+			{
+			 latitude: $id_14.lat,
+             longitude: $id_14.lon,
+			 'html' :	$id_14.commune + " - " + $id_14.name + "<br> " + $id_14.loc,
+			 'title' :	$id_14.commune + " - " + $id_14.name,
+			 icon	: $id_14.icon,
+			},{
+			 latitude: $id_15.lat,
+             longitude: $id_15.lon,
+			 'html' :	$id_15.commune + " - " + $id_15.name + "<br> " + $id_15.loc,
+			 'title' :	$id_15.commune + " - " + $id_15.name,
+			 icon	: $id_15.icon,
+			},
+			{
+			 latitude: $id_16.lat,
+             longitude: $id_16.lon,
+			 'html' :	$id_16.commune + " - " + $id_16.name + "<br> " + $id_16.loc,
+			 'title' :	$id_16.commune + " - " + $id_16.name,
+			 icon	: $id_16.icon,
+			},
+			{
+			 latitude: $id_17.lat,
+             longitude: $id_17.lon,
+			 'html' :	$id_17.commune + " - " + $id_17.name + "<br> " + $id_17.loc,
+			 'title' :	$id_17.commune + " - " + $id_17.name,
+			 icon	: $id_17.icon,
+			},
+			{
+			 latitude: $id_18.lat,
+             longitude: $id_18.lon,
+			 'html' :	$id_18.commune + " - " + $id_18.name + "<br> " + $id_18.loc,
+			 'title' :	$id_18.commune + " - " + $id_18.name,
+			 icon	: $id_19.icon,
+			},
+			{
+			 latitude: $id_19.lat,
+             longitude: $id_19.lon,
+			 'html' :	$id_19.commune + " - " + $id_19.name + "<br> " + $id_19.loc,
+			 'title' :	$id_19.commune + " - " + $id_19.name,
+			 icon	: $id_19.icon,
+			},
+			{
+			 latitude: $id_20.lat,
+             longitude: $id_20.lon,
+			 'html' :	$id_20.commune + " - " + $id_20.name + "<br> " + $id_20.loc,
+			 'title' :	$id_20.commune + " - " + $id_20.name,
+			 icon	: $id_20.icon,
+			},
+			{
+			 latitude: $id_21.lat,
+             longitude: $id_21.lon,
+			 'html' :	$id_21.commune + " - " + $id_21.name + "<br> " + $id_21.loc,
+			 'title' :	$id_21.commune + " - " + $id_21.name,
+			 icon	: $id_21.icon,
+			},
+			{
+			 latitude: $id_22.lat,
+             longitude: $id_22.lon,
+			 'html' :	$id_22.commune + " - " + $id_22.name + "<br> " + $id_22.loc,
+			 'title' :	$id_22.commune + " - " + $id_22.name,
+			 icon	: $id_22.icon,
+			},
+			{
+			 latitude: $id_23.lat,
+             longitude: $id_23.lon,
+			 'html' :	$id_23.commune + " - " + $id_23.name + "<br> " + $id_23.loc,
+			 'title' :	$id_23.commune + " - " + $id_23.name,
+			 icon	: $id_23.icon,
+			},
+			{
+			 latitude: $id_24.lat,
+             longitude: $id_24.lon,
+			 'html' :	$id_24.commune + " - " + $id_24.name + "<br> " + $id_24.loc,
+			 'title' :	$id_24.commune + " - " + $id_24.name,
+			 icon	: $id_24.icon,
+			},
+			{
+			 latitude: $id_25.lat,
+             longitude: $id_25.lon,
+			 'html' :	$id_25.commune + " - " + $id_25.name + "<br> " + $id_25.loc,
+			 'title' :	$id_25.commune + " - " + $id_25.name,
+			 icon	: $id_25.icon,
+			},
+			{
+			 latitude: $id_26.lat,
+             longitude: $id_26.lon,
+			 'html' :	$id_26.commune + " - " + $id_26.name + "<br> " + $id_26.loc,
+			 'title' :	$id_26.commune + " - " + $id_26.name,
+			 icon	: $id_26.icon,
+			},
+			{
+			 latitude: $id_27.lat,
+             longitude: $id_27.lon,
+			 'html' :	$id_27.commune + " - " + $id_27.name + "<br> " + $id_27.loc,
+			 'title' :	$id_27.commune + " - " + $id_27.name,
+			 icon	: $id_27.icon,
+			},
+			{
+			 latitude: $id_28.lat,
+             longitude: $id_28.lon,
+			 'html' :	$id_28.commune + " - " + $id_28.name + "<br> " + $id_28.loc,
+			 'title' :	$id_28.commune + " - " + $id_28.name,
+			 icon	: $id_28.icon,
+			},
+			{
+			 latitude: $id_29.lat,
+             longitude: $id_29.lon,
+			 'html' :	$id_29.commune + " - " + $id_29.name + "<br> " + $id_29.loc,
+			 'title' :	$id_29.commune + " - " + $id_29.name,
+			 icon	: $id_29.icon,
+			},
+			
+		],
+	});
+	});
+
+    </script>
+  </head>
+  <body>
+   <!-- <div id="map"></div>
+   
+   style="height:500px; width:715px; margin-top:20px;"
+    style="display:none;"
+	style="position:relative; width:600px; left:40px; top:20px; padding-bottom:20px;"
+   style="position:relative;top:-20px; left:10px;"
+   -->
+	
+	<p>		
+	<div class="moduletable">
+		<div id="gmap-unlogged-user"></div>
+		<div id="parent-info-map">
+			<div id="info-station">
+			<!--	<div style="background-image: url('./images/languette-top.png'); background-repeat:no-repeat; width: 98%; position:relative;  height: 13px; text-align: center; color: #898a8a;"></div>-->
+				<div style="background-image: url('./images/languette-middle.png'); background-repeat:repeat-y; width: 98%; position:relative; min-height: 84px; text-align: center; color: #898a8a; ">
+					<div id="content-station"></div>
+				</div>
+			<!--	<div style="background-image: url('./images/languette-bottom.png'); background-repeat:no-repeat; width: 98%; position:relative; height: 12px; text-align: center; color: #898a8a; "></div>-->
+			</div>
+		</div>		
+	</div>
+	</p> 
+	
+</div>
+  </body>
+</html>

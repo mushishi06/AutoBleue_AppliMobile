@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>Module Maps</title>
+   
+    <style>
+      html, body, #moduletable #map {
+		position:absolute;
+        width: 99.5%;
+        height: 99.0%;
+      }
+	  #gmap-unlogged-user {
+		position:absolute;
+		height:99.0%; 
+		width: 99.0%; 
+		}
+	  #parent-info-map {
+		display:none;
+	  }
+	  #content-station {
+		position:absolute; 
+		width:99.5%; 
+		top:-70px; 
+		<!-- padding-bottom:20px; -->
+	  }
+	  #info-station {
+		position:absolute;
+		top:99.5%; 
+		width:99.5%;	
+		}
+	</style>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+	<script src="js/module_maps.js" type="text/javascript"></script>
+
+  </head>
+  <body onload="onLoad()">
+ <!-- <body> -->
+	<div class="moduletable">
+		<!-- <div style="width: 100%; position:relative; min-height: 13px; text-align: center; color: #898a8a; ">
+			<div id="module_version">
+				<script>
+				getInfosModuleVersion();
+				</script>
+			</div>
+		</div> -->
+		<script>
+			getInfosModuleVersion();
+		</script>
+		<div id="gmap-unlogged-user"></div>
+		<div id="parent-info-map">
+			<div id="info-station">
+				<div style="width: 100%; position:relative;  text-align: center; color: #898a8a; "> <!-- min-height: 84px; -->
+					<div id="content-station"></div>
+				</div>
+			</div>
+		</div>		
+	</div>
+	
+  </body>
+</html>
