@@ -18,7 +18,7 @@ var currentCercle;
  */
 function getInfosModuleVersion() {
 	var module_version=new Object();
-	module_version = {"name":"module_maps", "version":[0,1,20] };
+	module_version = {"name":"module_maps", "version":[0,1,22] };
 	var _version = module_version.version[0] + "." + module_version.version[1] + "." + module_version.version[2];
 	var _msg = module_version.name + " : " + _version;
 	alert(_msg);
@@ -63,7 +63,7 @@ function HomeControl(controlDiv, map) {
 
 	google.maps.event.addDomListener(controlUI, 'click', function() {
 		console.log('addLocation');
-		var options = { maximumAge: 5000, timeout: 5000, enableHighAccuracy: true };
+		var options = {enableHighAccuracy: true }; //maximumAge: 5000, timeout: 5000,
         watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
 		//	 navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
 		
@@ -113,11 +113,12 @@ function HomeControl(controlDiv, map) {
 		//
 		function onError(error) {
 			navigator.notification.alert(
-				'You are the winner!',  // message
+				'code: '    + error.code    + '\n' + 'message: ' + error.message + '\n',  // message
 				null,         // callback
-				'Game Over',            // title
+				'Erreur Geolocalisation',            // title
 				'Done'                  // buttonName
 			);
+			clearWatch();
 		
 			// alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
 		}

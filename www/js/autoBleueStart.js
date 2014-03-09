@@ -5,7 +5,7 @@ var menu1 = [
 {href: 'default.html', innerHTML: 'Accueil', start: '0', cur: '0'},
 {href: 'maps.html', innerHTML: 'Carte des Stations', start: '1', cur: '1'},
 {href: 'settings.html', innerHTML: 'Settings', start: '2', cur: '2'},
-{href: 'noDrag.html', innerHTML: 'No Drag', start: '3', cur: '3'},
+{href: 'info-swiper.html', innerHTML: 'Informations Divers', start: '3', cur: '3'},
 {href: 'dragElement.html', innerHTML: 'Drag Element', start: '4', cur: '4'},
 {href: 'rightDisabled.html', innerHTML: 'Right Disabled', start: '5', cur: '5'},
 {href: 'hyperextend.html', innerHTML: 'Hyperextension Disabled', start: '6', cur: '6'},
@@ -14,6 +14,7 @@ var menu1 = [
 {href: 'classNames.html', innerHTML: 'Class Names', start: '9', cur: '9'},
 {href: 'expand.html', innerHTML: 'Expanding', start: '10', cur: '10'},
 {href: 'modele_new_menu.html', innerHTML: 'Modele de page', start: '11', cur: '11'}
+// {href: 'noDrag.html', innerHTML: 'No Drag', start: '3', cur: '3'},
 ];
 
 function menu_left(){
@@ -68,11 +69,10 @@ function DispTab(tab) {
 	for (var i = 0; i < nb; i++)
 		disp("Menu n° "+i+" : <B>"+tab[i].innerHTML+"</B> : "+tab[i].href+" <BR>");
 }
-//El&eacute;ment
 
 function saveOnDevice(){
 	var isFirstStart = window.localStorage.getItem("firstStart");
-	 alert(isFirstStart);
+	 // alert(isFirstStart);
 	if (isFirstStart == null){
 		alert("is your first use !!!");
 		window.localStorage.setItem("firstStart", false);

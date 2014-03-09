@@ -2,7 +2,7 @@
 
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget id="com.epitechPfa.autoBleu" 
-		version="0.1.73" 
+		version="0.1.74" 
 		versionCode="03" 
 		xmlns="http://www.w3.org/ns/widgets" 
 		xmlns:gap="http://phonegap.com/ns/1.0">
@@ -25,7 +25,7 @@
     <feature name="http://api.phonegap.com/1.0/camera" />
 	<feature name="http://api.phonegap.com/1.0/battery"/>
 	<feature name="http://api.phonegap.com/1.0/camera"/>
-	<feature name="http://api.<!-- phonegap -->.com/1.0/contacts"/>
+	<!-- <feature name="http://api.phonegap.com/1.0/contacts"/> -->
 	<!-- <feature name="http://api.phonegap.com/1.0/file"/> -->
 	<feature name="http://api.phonegap.com/1.0/geolocation"/>
 	<feature name="http://api.phonegap.com/1.0/media"/>
