@@ -2,8 +2,8 @@
 
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget id="com.epitechPfa.autoBleu" 
-		version="0.1.74" 
-		versionCode="03" 
+		version="0.1.75" 
+		versionCode="01" 
 		xmlns="http://www.w3.org/ns/widgets" 
 		xmlns:gap="http://phonegap.com/ns/1.0">
     
