@@ -1,6 +1,6 @@
 PFA_Auto-bleu
 =============
-<p>Mobile application for a corporation "Vernap" (Autobleue public service) with the **["PhoneGap"](http://phonegap.com) plateform version 3.1.0**</p>
+<p>Mobile application for a corporation "Vernap" (Autobleue public service) with the <a href="http://phonegap.com/">"PhoneGap"</a> plateform version 3.1.0</p>
 
 The application download is averable on "https://build.phonegap.com/apps/576646/share".
 
