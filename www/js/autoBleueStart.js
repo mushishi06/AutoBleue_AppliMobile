@@ -1,19 +1,20 @@
 
 var snapper = null;
+var tokenLogin = null;
 
 var menu1 = [
-{href: 'default.html', innerHTML: 'Accueil', start: '0', cur: '0'},
+{href: 'login.html', innerHTML: 'Accueil', start: '0', cur: '0'},
 {href: 'maps.html', innerHTML: 'Carte des Stations', start: '1', cur: '1'},
 {href: 'settings.html', innerHTML: 'Settings', start: '2', cur: '2'},
 {href: 'info-swiper.html', innerHTML: 'Informations Divers', start: '3', cur: '3'},
-{href: 'dragElement.html', innerHTML: 'Drag Element', start: '4', cur: '4'},
-{href: 'rightDisabled.html', innerHTML: 'Right Disabled', start: '5', cur: '5'},
-{href: 'hyperextend.html', innerHTML: 'Hyperextension Disabled', start: '6', cur: '6'},
-{href: 'skinnyThreshold.html', innerHTML: 'Skinny Threshold', start: '7', cur: '7'},
-{href: 'toggles.html', innerHTML: 'Toggles', start: '8', cur: '8'},
-{href: 'classNames.html', innerHTML: 'Class Names', start: '9', cur: '9'},
-{href: 'expand.html', innerHTML: 'Expanding', start: '10', cur: '10'},
-{href: 'modele_new_menu.html', innerHTML: 'Modele de page', start: '11', cur: '11'}
+{href: 'contact.html', innerHTML: 'Contact', start: '4', cur: '4'},
+// {href: 'rightDisabled.html', innerHTML: 'Right Disabled', start: '5', cur: '5'},
+// {href: 'hyperextend.html', innerHTML: 'Hyperextension Disabled', start: '6', cur: '6'},
+// {href: 'skinnyThreshold.html', innerHTML: 'Skinny Threshold', start: '7', cur: '7'},
+// {href: 'toggles.html', innerHTML: 'Toggles', start: '8', cur: '8'},
+// {href: 'classNames.html', innerHTML: 'Class Names', start: '9', cur: '9'},
+// {href: 'expand.html', innerHTML: 'Expanding', start: '10', cur: '10'},
+// {href: 'modele_new_menu.html', innerHTML: 'Modele de page', start: '11', cur: '11'}
 // {href: 'noDrag.html', innerHTML: 'No Drag', start: '3', cur: '3'},
 ];
 
@@ -28,12 +29,23 @@ function menu_left(){
 function getMenu() {
 	var menu = window.localStorage.getItem("myMenu");
 	// var menu = window.localStorage.myMenu;
-	alert(menu);
+	// alert(menu);
 	menu = JSON.parse(menu);
 	if (menu != null)
 		DispTab(menu);
 		// document.getElementById('tab').innerHTML = menu[0].innerHTML;
+}
+
+function getTokenLogin() {
+	tokenLogin = window.sessionStorage.getItem("tokenLogin");
+	tokenLogin = JSON.parse(tokenLogin);
+	// if (tokenLogin != null)
 		
+}
+function getErrorLogin() {
+	var errorLogin = window.sessionStorage.getItem("errorLogin");
+	if(errorLogin)
+		document.getElementById("errorLogin").style.display = "inline";
 }
 
 //function de trie a bulle
@@ -80,7 +92,9 @@ function saveOnDevice(){
 	}
 	else{
         isFirstStart = window.localStorage.getItem("firstStart");
-		alert("isFirstStart => " + isFirstStart);
+		getTokenLogin();
+		getErrorLogin();
+		// alert("isFirstStart => " + isFirstStart);
 		// window.localStorage.setItem("myMenu", JSON.stringify(menu1));
         // // value is now equal to "value"
         // window.localStorage.removeItem("key");

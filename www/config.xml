@@ -2,7 +2,7 @@
 
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget id="com.epitechPfa.autoBleu" 
-		version="0.1.75" 
+		version="0.1.76" 
 		versionCode="01" 
 		xmlns="http://www.w3.org/ns/widgets" 
 		xmlns:gap="http://phonegap.com/ns/1.0">

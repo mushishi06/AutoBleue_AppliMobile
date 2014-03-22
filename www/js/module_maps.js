@@ -254,7 +254,7 @@ function initialize_gmap() {
 			var j = i + 1;
 			marker.setTitle(markers[i].name + markers[i].typeVehicles);
 			var message = markers[i].name + "";
-			message += "<br />" + markers[i].street + "<br />" + markers[i].zip + " " + markers[i].city;
+			message += "<br />" + markers[i].typeVehicles +"<br />" + markers[i].street + "<br />" + markers[i].zip + " " + markers[i].city;
 			infoswindow[markers[i].idspot] = new Array();
 			infoswindow[markers[i].idspot]['content'] = message;
 			infoswindow[markers[i].idspot]['title'] = markers[i].name + " : " + markers[i].typeVehicles;

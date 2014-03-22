@@ -7,14 +7,22 @@ The application download is averable on "https://build.phonegap.com/apps/576646/
 
 =============
 
-<p>Change Log v0.1.75 :
+<p>Change Log v0.1.76 (Mars 22, 2014):
+<ul>
+    <li>"update and correction login function in js/login.js"</li>
+	<li>"Add save username and passWord in login function"</li>
+	<li>"update aff cars content in js/module_map.js"</li>
+	<li>"remove inutil html"</li>
+	<li>""</li>
+</ul></p>
+
+<p>Change Log v0.1.75 (Mars 11, 2014):
 <ul>
     <li>"update checkConnection function in js/autoBleueStart.js"</li>
 	<li>"remove js/demo.js"</li>
-	<li>""</li>
 </ul></p>
 	
-<p>Change Log v0.1.74 : 
+<p>Change Log v0.1.74 (Mars 09, 2014) : 
 <ul>
 	<li>"remove Toast.js from www/js folder"</li>
 	<li>"remove the social div from the menu"</li>
@@ -24,7 +32,7 @@ The application download is averable on "https://build.phonegap.com/apps/576646/
 	<li>"correction open-menu-left onClick on wing-icon (top-left)"</li>
 </ul></p>
 
-<p>Change Log v0.1.73 :
+<p>Change Log v0.1.73 (Mars 06, 2014):
 <ul>
 	<li>"Add new fonctionnality : local storage"</li>
 </ul></p>
