@@ -7,6 +7,12 @@ The application download is averable on "https://build.phonegap.com/apps/576646/
 
 =============
 
+<p>Change Log v0.1.77 (Mars 24, 2014):
+<ul>
+    <li>"Adding functionnal reservation"</li>
+	<li>""</li>
+</ul></p>
+
 <p>Change Log v0.1.76 (Mars 22, 2014):
 <ul>
     <li>"update and correction login function in js/login.js"</li>

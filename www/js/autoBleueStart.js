@@ -8,7 +8,7 @@ var menu1 = [
 {href: 'settings.html', innerHTML: 'Settings', start: '2', cur: '2'},
 {href: 'info-swiper.html', innerHTML: 'Informations Divers', start: '3', cur: '3'},
 {href: 'contact.html', innerHTML: 'Contact', start: '4', cur: '4'},
-// {href: 'rightDisabled.html', innerHTML: 'Right Disabled', start: '5', cur: '5'},
+{href: 'reservation.html', innerHTML: 'Reservation', start: '5', cur: '5'},
 // {href: 'hyperextend.html', innerHTML: 'Hyperextension Disabled', start: '6', cur: '6'},
 // {href: 'skinnyThreshold.html', innerHTML: 'Skinny Threshold', start: '7', cur: '7'},
 // {href: 'toggles.html', innerHTML: 'Toggles', start: '8', cur: '8'},
