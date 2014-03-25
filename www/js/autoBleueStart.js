@@ -171,7 +171,7 @@ function	saveOnDevice(){
 	var isFirstStart = window.localStorage.getItem("firstStart");
 	 // alert(isFirstStart);
 	if (isFirstStart == null){
-		alert("is your first use !!!");
+		//alert("is your first use !!!");
 		window.localStorage.setItem("firstStart", false);
 		window.localStorage.setItem("myMenu", JSON.stringify(menu1));
 		var unknownUser = {name: 'User', lastName: 'Unknown', mail: 'exemple@domaine.com', descr: 'User not logged', img: 'img/userNotLogged.jpeg'};

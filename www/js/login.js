@@ -27,7 +27,7 @@ function callBackLogMeIn(sdata, saveUser, savePass){
 		if (getUserInfo()) {
 			var user = "Moi";
 			if (saveUser.checked){ user = saveUser.value;}
-			var unknownUser = {name: user, lastName: '', mail: 'exemple@domaine.com', descr: 'User logged', img: 'img/photo.png'};
+			var unknownUser = {name: user, lastName: '', mail: 'exemple@domaine.com', descr: 'User logged', img: 'img/userNotLogged.jpeg'};
 			window.localStorage.removeItem("userInfo")
 			window.localStorage.setItem("userInfo", JSON.stringify(unknownUser));
 		}
