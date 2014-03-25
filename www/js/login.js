@@ -3,7 +3,7 @@ var xmlHttp = null;
 
 	
 function			logMeIn(username, password, saveUser, savePass) {
-	alert("Username = " + username + ". Password = " + password);
+	//alert("Username = " + username + ". Password = " + password);
 	
 	saveUser.value = username;
 	savePass.value = password;
@@ -15,8 +15,6 @@ function			logMeIn(username, password, saveUser, savePass) {
 				callBackLogMeIn(xmlHttp.responseText, saveUser, savePass);
                // alert(xmlHttp.responseText); // Données textuelles récupérées
 				 document.getElementById("loader").style.display = "none";
-        } else if (xmlHttp.readyState < 4) {
-            document.getElementById("loader").style.display = "inline";
         }
 	};
 	xmlHttp.send();
@@ -25,6 +23,7 @@ function			logMeIn(username, password, saveUser, savePass) {
 function callBackLogMeIn(sdata, saveUser, savePass){
 	var res = JSON.parse(sdata);
 	if (res.success){
+		alert("Logged in")
 		if (getUserInfo()) {
 			var user = "Moi";
 			if (saveUser.checked){ user = saveUser.value;}
@@ -49,13 +48,14 @@ function callBackLogMeIn(sdata, saveUser, savePass){
 		window.sessionStorage.removeItem("errorLogin");
 		window.sessionStorage.setItem("tokenLogin", JSON.stringify(res.token));
 	} else {
+		alert("Identifiants incorrects.")
 		// if (res.errcode == 449 || res.errcode == 401)
 			// relogAuto();
 		window.sessionStorage.removeItem("tokenLogin");
 		window.localStorage.removeItem("userLogin");
 		window.localStorage.removeItem("userPass");
 		window.sessionStorage.setItem("errorLogin", true);
-		document.getElementById("errorLogin").style.display = "inline";
+		//document.getElementById("errorLogin").style.display = "inline";
 	}
 }
 
@@ -67,8 +67,6 @@ function	autoLogin(username, password) {
         if (xmlHttp.readyState == 4 && (xmlHttp.status == 200 || xmlHttp.status == 0)) {
 				callBackAutoLogin(xmlHttp.responseText);
 				document.getElementById("loader").style.display = "none";
-        } else if (xmlHttp.readyState < 4) {
-            document.getElementById("loader").style.display = "inline";
         }
 	};
 	xmlHttp.send();

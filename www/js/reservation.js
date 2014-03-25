@@ -22,7 +22,7 @@ function			doReservation(station, car, start, end) {
 	//savePass.value = password;
    	// var xmlHttp = null;
 	xmlHttp = new XMLHttpRequest();
-	xmlHttp.open( "GET", "http://belia-bourgeois.fr/AutoBleue/server.php?method=reservation&token=" +  42 + "&station=" + encodeURIComponent(station) + "&car=" + encodeURIComponent(car) + "&start=" + encodeURIComponent(start) + "&end=" + encodeURIComponent(end), false );
+	xmlHttp.open( "GET", "http://belia-bourgeois.fr/AutoBleue/server.php?method=reservation&token=" +  tokenLogin + "&station=" + encodeURIComponent(station) + "&car=" + encodeURIComponent(car) + "&start=" + encodeURIComponent(start) + "&end=" + encodeURIComponent(end), false );
 	xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4 && (xmlHttp.status == 200 || xmlHttp.status == 0)) {
 				callBackDoReservation(xmlHttp.responseText, station, car, start, end);
@@ -55,7 +55,7 @@ function			checkReservation(station, car, start, end) {
 	//savePass.value = password;
    	// var xmlHttp = null;
 	xmlHttp = new XMLHttpRequest();
-	xmlHttp.open( "GET", "http://belia-bourgeois.fr/AutoBleue/server.php?method=check&token=" +  42 + "&station=" + encodeURIComponent(station) + "&car=" + encodeURIComponent(car) + "&start=" + encodeURIComponent(start) + "&end=" + encodeURIComponent(end), false );
+	xmlHttp.open( "GET", "http://belia-bourgeois.fr/AutoBleue/server.php?method=check&token=" +  tokenLogin + "&station=" + encodeURIComponent(station) + "&car=" + encodeURIComponent(car) + "&start=" + encodeURIComponent(start) + "&end=" + encodeURIComponent(end), false );
 	xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4 && (xmlHttp.status == 200 || xmlHttp.status == 0)) {
 				callBackcheckReservation(xmlHttp.responseText, station, car, start, end);
