@@ -3,7 +3,7 @@ var xmlHttp = null;
 
 	
 function			logMeIn(username, password, saveUser, savePass) {
-	//alert("Username = " + username + ". Password = " + password);
+	alert("Username = " + username + ". Password = " + password);
 	
 	saveUser.value = username;
 	savePass.value = password;
@@ -23,7 +23,7 @@ function			logMeIn(username, password, saveUser, savePass) {
 }
 
 function callBackLogMeIn(sdata, saveUser, savePass){
-	// alert("yepaaaa");
+	 alert("yepaaaa");
 
 	var res = JSON.parse(sdata);
 	if (res.success){

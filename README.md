@@ -7,10 +7,16 @@ The application download is averable on "https://build.phonegap.com/apps/576646/
 
 =============
 
+
+<p>Change Log v0.1.80 (Mars 25, 2014):
+<ul>
+    <li>"New styles"</li>
+	<li>"Adding my reservations and search stations by cars, not functionnal"</li>
+</ul></p>
+
 <p>Change Log v0.1.77 (Mars 24, 2014):
 <ul>
     <li>"Adding functionnal reservation"</li>
-	<li>""</li>
 </ul></p>
 
 <p>Change Log v0.1.76 (Mars 22, 2014):
@@ -19,7 +25,6 @@ The application download is averable on "https://build.phonegap.com/apps/576646/
 	<li>"Add save username and passWord in login function"</li>
 	<li>"update aff cars content in js/module_map.js"</li>
 	<li>"remove inutil html"</li>
-	<li>""</li>
 </ul></p>
 
 <p>Change Log v0.1.75 (Mars 11, 2014):

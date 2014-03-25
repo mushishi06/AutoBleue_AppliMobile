@@ -3,12 +3,12 @@ var snapper = null;
 var tokenLogin = null;
 
 var menu1 = [
-{href: 'login.html', innerHTML: 'Accueil', start: '0', cur: '0'},
-{href: 'maps.html', innerHTML: 'Carte des Stations', start: '1', cur: '1'},
-{href: 'settings.html', innerHTML: 'Settings', start: '2', cur: '2'},
-{href: 'info-swiper.html', innerHTML: 'Informations Divers', start: '3', cur: '3'},
-{href: 'contact.html', innerHTML: 'Contact', start: '4', cur: '4'},
-{href: 'reservation.html', innerHTML: 'Reservation', start: '5', cur: '5'},
+{href: 'login.html', innerHTML: '<img src="img/ico_info.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Accueil', start: '0', cur: '0'},
+{href: 'maps.html', innerHTML: '<img src="img/ico_info.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Carte des Stations', start: '1', cur: '1'},
+{href: 'reservation.html', innerHTML: '<img src="img/ico_info.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; R&eacute;server', start: '2', cur: '2'},
+{href: 'search.html', innerHTML: '<img src="img/ico_info.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Rechercher', start: '3', cur: '3'},
+{href: 'contact.html', innerHTML: '<img src="img/ico_info.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Contact', start: '4', cur: '4'},
+{href: 'myReservation.html', innerHTML: '<img src="img/ico_info.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Mes r&eacute;servations', start: '5', cur: '5'}
 // {href: 'hyperextend.html', innerHTML: 'Hyperextension Disabled', start: '6', cur: '6'},
 // {href: 'skinnyThreshold.html', innerHTML: 'Skinny Threshold', start: '7', cur: '7'},
 // {href: 'toggles.html', innerHTML: 'Toggles', start: '8', cur: '8'},
