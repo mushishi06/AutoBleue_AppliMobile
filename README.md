@@ -7,6 +7,13 @@ The application download is averable on "https://build.phonegap.com/apps/576646/
 
 =============
 
+<p>Change Log v0.1.90 (Mars 25, 2014):
+<ul>
+    <li>"search station functionnal"</li>
+	<li>"current reservation functionnal"</li>
+</ul></p>
+
+
 <p>Change Log v0.1.81 (Mars 25, 2014):
 <ul>
     <li>"correction login"</li>
