@@ -23,12 +23,20 @@ function			logMeIn(username, password, saveUser, savePass) {
 }
 
 function callBackLogMeIn(sdata, saveUser, savePass){
-	 alert("yepaaaa");
-
 	var res = JSON.parse(sdata);
 	if (res.success){
-	// document.getElementById("errorLogin").style.display = "none";
-		alert("success = "+ res.success + " msg = " + res.msg + " token = " + res.token);
+		if (getUserInfo()) {
+			var user = "Moi";
+			if (saveUser.checked){ user = saveUser.value;}
+			var unknownUser = {name: user, lastName: 'Unknown', mail: 'exemple@domaine.com', descr: 'User logged', img: 'img/photo.png'};
+			window.localStorage.removeItem("userInfo")
+			window.localStorage.setItem("userInfo", JSON.stringify(unknownUser));
+		}
+		var menu = window.localStorage.getItem("myMenu");
+		menu = JSON.parse(menu);
+		menu.push({href: 'javascript:logout()', innerHTML: '<img src="img/ico_info.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Logout', start: '10', cur: '10'});
+		window.localStorage.removeItem("myMenu");
+		window.localStorage.setItem("myMenu", JSON.stringify(menu));
 		window.localStorage.removeItem("userLogin");
 		window.localStorage.removeItem("userPass");
 		if (saveUser.checked){
@@ -41,11 +49,47 @@ function callBackLogMeIn(sdata, saveUser, savePass){
 		window.sessionStorage.removeItem("errorLogin");
 		window.sessionStorage.setItem("tokenLogin", JSON.stringify(res.token));
 	} else {
+		// if (res.errcode == 449 || res.errcode == 401)
+			// relogAuto();
 		window.sessionStorage.removeItem("tokenLogin");
 		window.localStorage.removeItem("userLogin");
 		window.localStorage.removeItem("userPass");
 		window.sessionStorage.setItem("errorLogin", true);
 		document.getElementById("errorLogin").style.display = "inline";
+	}
+}
+
+function	autoLogin(username, password) {
+
+	xmlHttp = new XMLHttpRequest();
+	xmlHttp.open( "GET", "http://belia-bourgeois.fr/AutoBleue/server.php?method=login&mail=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password), false );
+	xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4 && (xmlHttp.status == 200 || xmlHttp.status == 0)) {
+				callBackAutoLogin(xmlHttp.responseText);
+				document.getElementById("loader").style.display = "none";
+        } else if (xmlHttp.readyState < 4) {
+            document.getElementById("loader").style.display = "inline";
+        }
+	};
+	xmlHttp.send();
+}
+
+function	callBackAutoLogin(sdata){
+	var res = JSON.parse(sdata);
+	if (res.success){
+		alert("success = "+ res.success + " msg = " + res.msg + " token = " + res.token);
+		
+		var menu = window.localStorage.getItem("myMenu");
+		menu = JSON.parse(menu);
+		menu.push({href: 'javascript:logout()', innerHTML: '<img src="img/ico_info.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Logout', start: '10', cur: '10'});
+		window.localStorage.removeItem("myMenu");
+		window.localStorage.setItem("myMenu", JSON.stringify(menu));
+		window.sessionStorage.removeItem("tokenLogin");
+		window.sessionStorage.removeItem("errorLogin");
+		window.sessionStorage.setItem("tokenLogin", JSON.stringify(res.token));
+	} else {
+		// if (res.errcode == 449 || res.errcode == 401)
+			// relogAuto();		
 	}
 }
 
@@ -70,18 +114,18 @@ function			testMe() {
 		
 }
 
-function			logout() {
-   	var xmlHttp = null;
+// function			logout() {
+   	// var xmlHttp = null;
 
-	xmlHttp = new XMLHttpRequest();
-	xmlHttp.onreadystatechange=function()	{
-		if (xmlHttp.readyState == 4)	{
-			if (xmlHttp.status == 200)
-				alert(xmlHttp.responseText);
-			else
-				alert("got 404 or 403 error");
-		}
-	}
-	xmlHttp.open( "GET", "http://belia-bourgeois.fr/AutoBleue/server.php?method=logout", true);
-	xmlHttp.send();
-}
+	// xmlHttp = new XMLHttpRequest();
+	// xmlHttp.onreadystatechange=function()	{
+		// if (xmlHttp.readyState == 4)	{
+			// if (xmlHttp.status == 200)
+				// alert(xmlHttp.responseText);
+			// else
+				// alert("got 404 or 403 error");
+		// }
+	// }
+	// xmlHttp.open( "GET", "http://belia-bourgeois.fr/AutoBleue/server.php?method=logout", true);
+	// xmlHttp.send();
+// }

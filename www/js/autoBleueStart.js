@@ -1,6 +1,6 @@
 
 var snapper = null;
-var tokenLogin = null;
+var tokenLogin = null, userLogin = null, passLogin = null, userInfo = null;
 
 var menu1 = [
 {href: 'login.html', innerHTML: '<img src="img/ico_info.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Accueil', start: '0', cur: '0'},
@@ -18,15 +18,79 @@ var menu1 = [
 // {href: 'noDrag.html', innerHTML: 'No Drag', start: '3', cur: '3'},
 ];
 
-function menu_left(){
-	var menu = TriTab(menu1, 1);
+function	menu_left(){
+	console.log('menu left');
+	// var menu = TriTab(menu1, 1);
+	if (getUserInfo()) {
+		console.log('getUserInfo');
+		document.getElementById('profilImg').src = userInfo.img;
+		document.getElementById('profilName').innerHTML = userInfo.name + ' ' + userInfo.lastName;
+		document.getElementById('profilDescr').innerHTML = userInfo.descr;
+	}
+	var menu = window.localStorage.getItem("myMenu");
+	menu = JSON.parse(menu);
+	menu = TriTab(menu, 1);
 	for (i=0; i < menu.length; i++){
 		document.getElementById('link_'+i).href = menu[i].href;
 		document.getElementById('link_'+i).innerHTML = menu[i].innerHTML;
 	}
 }
 
-function getMenu() {
+function	relogAuto(){
+	console.log('relogAuto');
+	if (getTokenLogin()) {
+		window.location.href='maps.html';
+		// window.location.reload('module_map.html');
+		// window.location.replace('module_map.html');
+	}
+	if (getUserLogin()) {
+		// window.location.href='default.html';
+		// window.location.reload('default.html');
+		// window.location.replace('default.html');
+	}
+}
+
+function	logout() {
+   	var xmlHttp = null;
+	console.log('logout func');
+	xmlHttp = new XMLHttpRequest();
+	xmlHttp.onreadystatechange=function()	{
+		if (xmlHttp.readyState == 4)	{
+			if (xmlHttp.status == 200)
+				logoutSuccess(xmlHttp.responseText);// alert(xmlHttp.responseText);
+			else
+				alert("got 404 or 403 error");
+		}
+	}
+	xmlHttp.open( "GET", "http://belia-bourgeois.fr/AutoBleue/server.php?method=logout", true);
+	xmlHttp.send();
+}
+
+function	logoutSuccess(sdata) {
+	console.log('logout Success');
+	var res = JSON.parse(sdata);
+	// if (res.success){
+		console.log('res.Success = ' + res.success);
+		var menu = window.localStorage.getItem("myMenu");
+		menu = JSON.parse(menu);
+		menu = TriTab(menu, 1);
+		menu.pop();
+		window.localStorage.removeItem("myMenu");
+		window.localStorage.setItem("myMenu", JSON.stringify(menu));
+		window.sessionStorage.removeItem("tokenLogin");
+		window.sessionStorage.removeItem("userInfo");
+		var unknownUser = {name: 'User', lastName: 'Unknown', mail: 'exemple@domaine.com', descr: 'User not logged', img: 'img/userNotLogged.jpeg'};
+		window.localStorage.setItem("userInfo", JSON.stringify(unknownUser));
+		window.location.href='login.html';
+	// }
+}
+
+
+function	checkUserLogged() {
+	return (getTokenLogin());
+}
+
+function	getMenu() {
 	var menu = window.localStorage.getItem("myMenu");
 	// var menu = window.localStorage.myMenu;
 	// alert(menu);
@@ -36,27 +100,48 @@ function getMenu() {
 		// document.getElementById('tab').innerHTML = menu[0].innerHTML;
 }
 
-function getTokenLogin() {
+function	getUserInfo() {
+	userInfo = window.localStorage.getItem("userInfo");
+	userInfo = JSON.parse(userInfo);
+	if (userInfo != null) { return true;}
+	else { return false;}	
+}
+
+function	getTokenLogin() {
 	tokenLogin = window.sessionStorage.getItem("tokenLogin");
 	tokenLogin = JSON.parse(tokenLogin);
-	// if (tokenLogin != null)
-		
+	if (tokenLogin != null) { return true;}
+	else { return false;}	
 }
-function getErrorLogin() {
+
+function	getUserLogin() {
+	userLogin = window.sessionStorage.getItem("userLogin");
+	userLogin = JSON.parse(tokenLogin);
+	if (userLogin != null){ return true;}
+	else { return false;}	
+}
+
+function	getPassLogin() {
+	userPass = window.sessionStorage.getItem("userPass");
+	userPass = JSON.parse(userPass);
+	if (userPass != null){ return true;}
+	else { return false;}		
+}
+
+function	getErrorLogin() {
 	var errorLogin = window.sessionStorage.getItem("errorLogin");
 	if(errorLogin)
 		document.getElementById("errorLogin").style.display = "inline";
 }
 
 //function de trie a bulle
-function inverser(tab,i,j) {
+function	inverser(tab,i,j) {
 	var temp=tab[i];
 	tab[i]=tab[j];
 	tab[j]=temp;
 }
 
-function TriTab(tab,ordre) {
-	// tab est le nom du tableau
+function	TriTab(tab,ordre) {
 	// ordre vaut 1 si tri croissant et -1 sinon
 	ordre=-ordre;
 	var n=tab.length;
@@ -75,30 +160,38 @@ function TriTab(tab,ordre) {
 
 	return tab;
 }
-function disp(txt) { document.write(txt) }
-function DispTab(tab) {
+function	disp(txt) { document.write(txt) }
+function	DispTab(tab) {
 	var nb=tab.length; 
 	for (var i = 0; i < nb; i++)
 		disp("Menu n° "+i+" : <B>"+tab[i].innerHTML+"</B> : "+tab[i].href+" <BR>");
 }
 
-function saveOnDevice(){
+function	saveOnDevice(){
 	var isFirstStart = window.localStorage.getItem("firstStart");
 	 // alert(isFirstStart);
 	if (isFirstStart == null){
 		alert("is your first use !!!");
 		window.localStorage.setItem("firstStart", false);
 		window.localStorage.setItem("myMenu", JSON.stringify(menu1));
+		var unknownUser = {name: 'User', lastName: 'Unknown', mail: 'exemple@domaine.com', descr: 'User not logged', img: 'img/userNotLogged.jpeg'};
+		window.localStorage.setItem("userInfo", JSON.stringify(unknownUser));
 	}
 	else{
-        isFirstStart = window.localStorage.getItem("firstStart");
-		getTokenLogin();
+		if (!checkUserLogged()){
+			if (getUserLogin() && getPassLogin())
+				{autoLogin(userLogin, passLogin);}
+			// else { 
+				// console.log('else checkUserLogged');
+				// if (self.href=='login.html'){
+					// console.log('if ddd');
+					// window.location.href='login.html';
+				// }					
+			// }
+		}
+		// getTokenLogin();
 		getErrorLogin();
-		// alert("isFirstStart => " + isFirstStart);
-		// window.localStorage.setItem("myMenu", JSON.stringify(menu1));
-        // // value is now equal to "value"
-        // window.localStorage.removeItem("key");
-        // window.localStorage.setItem("key2", "value2");
+		
         // window.localStorage.clear();
         // localStorage is now empty
 	}
@@ -106,11 +199,8 @@ function saveOnDevice(){
 
 function onLoad() {
 		bindEvents();
-	
     }
-   
     // Bind Event Listeners
-    //
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
 function bindEvents() {
@@ -118,7 +208,6 @@ function bindEvents() {
 	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 }
     // deviceready Event Handler
-    //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicity call 'app.receivedEvent(...);'
 function onDeviceReady() {
@@ -129,8 +218,6 @@ function onDeviceReady() {
 	window.addEventListener("batterystatus", onBatteryStatus, false);
 	// document.addEventListener("menubutton", onMenuKeyDown, false);
 	saveOnDevice();
-	
-    // receivedEvent('deviceready');
 }
     // Update DOM on a Received Event
 function receivedEvent(id) {
@@ -146,30 +233,24 @@ function receivedEvent(id) {
 	// Handle the menu button
     //
 function onMenuKeyDown() {
-	 console.log('menu press');
-	 // alert("menu key down!");
+	console.log('menu press');
 	if (snapper != null) {
-		if( snapper.state().state=="left" ){
-			snapper.close();
-		} else {
-			snapper.open('left');
-		}
+		if( snapper.state().state=="left" ) { snapper.close(); }
+		else { snapper.open('left'); }
 	}
 }
 	
 function onBatteryStatus(info) {
-        console.log("Level: " + info.level + " isPlugged: " + info.isPlugged);
-		alert("Level: " + info.level + " isPlugged: " + info.isPlugged);
-    }
+    console.log("Level: " + info.level + " isPlugged: " + info.isPlugged);
+	alert("Level: " + info.level + " isPlugged: " + info.isPlugged);
+}
 	
     // Handle the batterycritical event
-    //
 function onBatteryCritical(info) {
     alert("Battery Level Critical " + info.level + "%\nRecharge Soon!");
 }
 	
-	 // Handle the batterylow event
-    //
+	// Handle the batterylow event
 function onBatteryLow(info) {
     alert("Battery Level Low " + info.level + "%");
 }
