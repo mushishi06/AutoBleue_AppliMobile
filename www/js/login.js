@@ -14,7 +14,7 @@ function			logMeIn(username, password, saveUser, savePass) {
         if (xmlHttp.readyState == 4 && (xmlHttp.status == 200 || xmlHttp.status == 0)) {
 				callBackLogMeIn(xmlHttp.responseText, saveUser, savePass);
                // alert(xmlHttp.responseText); // Données textuelles récupérées
-				 document.getElementById("loader").style.display = "none";
+				// document.getElementById("loader").style.display = "none";
         }
 	};
 	xmlHttp.send();
@@ -27,7 +27,7 @@ function callBackLogMeIn(sdata, saveUser, savePass){
 		if (getUserInfo()) {
 			var user = "Moi";
 			if (saveUser.checked){ user = saveUser.value;}
-			var unknownUser = {name: user, lastName: 'Unknown', mail: 'exemple@domaine.com', descr: 'User logged', img: 'img/photo.png'};
+			var unknownUser = {name: user, lastName: '', mail: 'exemple@domaine.com', descr: 'User logged', img: 'img/photo.png'};
 			window.localStorage.removeItem("userInfo")
 			window.localStorage.setItem("userInfo", JSON.stringify(unknownUser));
 		}
@@ -48,7 +48,7 @@ function callBackLogMeIn(sdata, saveUser, savePass){
 		window.sessionStorage.removeItem("errorLogin");
 		window.sessionStorage.setItem("tokenLogin", JSON.stringify(res.token));
 	} else {
-		alert("Identifiants incorrects.")
+		alert("Identifiants incorrects.");
 		// if (res.errcode == 449 || res.errcode == 401)
 			// relogAuto();
 		window.sessionStorage.removeItem("tokenLogin");

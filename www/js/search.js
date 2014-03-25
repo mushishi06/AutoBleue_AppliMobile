@@ -24,7 +24,7 @@ function callBackSearchByCar(reply){
 
 function			searchByCar(carName, tokenLog) {
 	xmlHttp = new XMLHttpRequest();
-	xmlHttp.open( "GET", "http://belia-bourgeois.fr/AutoBleue/server.php?method=list_stations_cars&token=" +  tokenLogin +"&car=" + carName, false );
+	xmlHttp.open( "GET", "http://belia-bourgeois.fr/AutoBleue/server.php?method=list_stations_cars&token=" +  42 +"&car=" + carName, false );
 	xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4 && (xmlHttp.status == 200 || xmlHttp.status == 0)) {
 				callBackSearchByCar(xmlHttp.responseText);

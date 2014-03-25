@@ -28,7 +28,7 @@ function callBackCheckCurrentReservation(reply){
 
 function			checkCurrentReservation() {
 	xmlHttp = new XMLHttpRequest();
-	xmlHttp.open( "GET", "http://belia-bourgeois.fr/AutoBleue/server.php?method=current_res&token=" +  tokenLogin  , false );
+	xmlHttp.open( "GET", "http://belia-bourgeois.fr/AutoBleue/server.php?method=current_res&token=" +  42  , false );
 	xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4 && (xmlHttp.status == 200 || xmlHttp.status == 0)) {
 				callBackCheckCurrentReservation(xmlHttp.responseText);
