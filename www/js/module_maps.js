@@ -112,15 +112,15 @@ function HomeControl(controlDiv, map) {
 		// onError Callback receives a PositionError object
 		//
 		function onError(error) {
-			navigator.notification.alert(
-				'code: '    + error.code    + '\n' + 'message: ' + error.message + '\n',  // message
-				null,         // callback
-				'Erreur Geolocalisation',            // title
-				'Done'                  // buttonName
-			);
+			alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
+			// need activate <gap:plugin name="org.apache.cordova.dialogs" /> in config.xml ligne 68
+			// navigator.notification.alert(
+				// 'code: '    + error.code    + '\n' + 'message: ' + error.message + '\n',  // message
+				// null,         // callback
+				// 'Erreur Geolocalisation',            // title
+				// 'Done'                  // buttonName
+			// );
 			clearWatch();
-		
-			// alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
 		}
 		
 		function clearWatch() {

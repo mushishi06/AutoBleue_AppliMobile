@@ -1,14 +1,15 @@
 
-var snapper = null;
+var snapper = null, myScroll = null;
 var tokenLogin = null, userLogin = null, passLogin = null, userInfo = null;
 
 var menu1 = [
 {href: 'login.html', innerHTML: '<img src="img/ico_info.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Accueil', start: '0', cur: '0'},
 {href: 'maps.html', innerHTML: '<img src="img/ico_info.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Carte des Stations', start: '1', cur: '1'},
-{href: 'reservation.html', innerHTML: '<img src="img/ico_info.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; R&eacute;server', start: '2', cur: '2'},
-{href: 'search.html', innerHTML: '<img src="img/ico_info.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Rechercher', start: '3', cur: '3'},
-{href: 'contact.html', innerHTML: '<img src="img/ico_info.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Contact', start: '4', cur: '4'},
-{href: 'myReservation.html', innerHTML: '<img src="img/ico_info.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Mes r&eacute;servations', start: '5', cur: '5'}
+{href: 'search.html', innerHTML: '<img src="img/ico_info.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Rechercher', start: '2', cur: '2'},
+{href: 'reservation.html', innerHTML: '<img src="img/ico_info.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; R&eacute;server', start: '3', cur: '3'},
+{href: 'myReservation.html', innerHTML: '<img src="img/ico_info.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Mes r&eacute;servations', start: '4', cur: '4'},
+{href: 'contact.html', innerHTML: '<img src="img/ico_info.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Contact', start: '5', cur: '5'},
+{href: 'settings.html', innerHTML: '<img src="img/ico_info.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Param&egrave;tres', start: '6', cur: '6'}
 // {href: 'hyperextend.html', innerHTML: 'Hyperextension Disabled', start: '6', cur: '6'},
 // {href: 'skinnyThreshold.html', innerHTML: 'Skinny Threshold', start: '7', cur: '7'},
 // {href: 'toggles.html', innerHTML: 'Toggles', start: '8', cur: '8'},
@@ -69,7 +70,8 @@ function	logout() {
 function	logoutSuccess(sdata) {
 	console.log('logout Success');
 	var res = JSON.parse(sdata);
-	// if (res.success){
+	// alert("success = "+ res.success + "error = " + res.errcode +" msg = " + res.msg + " token = " + res.token);
+	 if (res.success){
 		console.log('res.Success = ' + res.success);
 		var menu = window.localStorage.getItem("myMenu");
 		menu = JSON.parse(menu);
@@ -79,10 +81,12 @@ function	logoutSuccess(sdata) {
 		window.localStorage.setItem("myMenu", JSON.stringify(menu));
 		window.sessionStorage.removeItem("tokenLogin");
 		window.sessionStorage.removeItem("userInfo");
-		var unknownUser = {name: 'User', lastName: 'Unknown', mail: 'exemple@domaine.com', descr: 'User not logged', img: 'img/userNotLogged.jpeg'};
+		var unknownUser = {name: 'User', lastName: 'Unknown', mail: 'exemple@domaine.com', descr: 'User not logged', img: 'img/userNotLogged.jpeg', isLogged: 'false'};
 		window.localStorage.setItem("userInfo", JSON.stringify(unknownUser));
 		window.location.href='login.html';
-	// }
+		// alert("Logout Success");
+	 }
+	 // else alert("Logout Failed");
 }
 
 
@@ -92,12 +96,9 @@ function	checkUserLogged() {
 
 function	getMenu() {
 	var menu = window.localStorage.getItem("myMenu");
-	// var menu = window.localStorage.myMenu;
-	// alert(menu);
 	menu = JSON.parse(menu);
 	if (menu != null)
 		DispTab(menu);
-		// document.getElementById('tab').innerHTML = menu[0].innerHTML;
 }
 
 function	getUserInfo() {
@@ -164,36 +165,53 @@ function	disp(txt) { document.write(txt) }
 function	DispTab(tab) {
 	var nb=tab.length; 
 	for (var i = 0; i < nb; i++)
-		disp("Menu n° "+i+" : <B>"+tab[i].innerHTML+"</B> : "+tab[i].href+" <BR>");
+		disp("Menu n° "+i+" : <B>"+tab[i].innerHTML+" <BR>");
 }
 
-function	saveOnDevice(){
+function	reinitialisation(){
+	var getSaveId = document.getElementById("saveId");
+	if (!getSaveId.checked){
+		window.localStorage.removeItem("userLogin");
+		window.localStorage.removeItem("userPass");
+	}
+	window.localStorage.removeItem("firstStart");
+	window.localStorage.removeItem("myMenu");
+	window.localStorage.removeItem("userInfo");
+	window.sessionStorage.removeItem("tokenLogin");
+	window.sessionStorage.removeItem("errorLogin");
+	window.location.href='login.html';
+	alert("Réinitialisation réalisé avec success !!!");
+}
+
+function	removeIdUser() {
+	if (getUserLogin()){window.localStorage.removeItem("userLogin");}
+	if (getPassLogin()){window.localStorage.removeItem("userPass");}
+	alert("Identifiants supprimé avec success !!!");
+}
+
+function	saveOnDevice(isLoginPage){
 	var isFirstStart = window.localStorage.getItem("firstStart");
-	 // alert(isFirstStart);
 	if (isFirstStart == null){
+		console.log('is your first use !!!');
 		//alert("is your first use !!!");
 		window.localStorage.setItem("firstStart", false);
 		window.localStorage.setItem("myMenu", JSON.stringify(menu1));
-		var unknownUser = {name: 'User', lastName: 'Unknown', mail: 'exemple@domaine.com', descr: 'User not logged', img: 'img/userNotLogged.jpeg'};
+		var unknownUser = {name: 'User', lastName: 'Unknown', mail: 'exemple@domaine.com', descr: 'User not logged', img: 'img/userNotLogged.jpeg', isLogged: 'false'};
 		window.localStorage.setItem("userInfo", JSON.stringify(unknownUser));
 	}
 	else{
 		if (!checkUserLogged()){
-			if (getUserLogin() && getPassLogin())
-				{autoLogin(userLogin, passLogin);}
-			// else { 
-				// console.log('else checkUserLogged');
-				// if (self.href=='login.html'){
-					// console.log('if ddd');
-					// window.location.href='login.html';
-				// }					
-			// }
-		}
-		// getTokenLogin();
-		getErrorLogin();
-		
-        // window.localStorage.clear();
-        // localStorage is now empty
+			console.log('checkUserLogged False ');
+			if (getUserInfo()) {if (userInfo.isLogged == "true"){logout();}}
+			if (getUserLogin() && getPassLogin()) {autoLogin(userLogin, passLogin);}
+			else { if (!isLoginPage){window.location.href='login.html';}}
+		} else {
+			console.log('checkUserLogged true ');
+			if (isLoginPage)
+				window.location.href='reservation.html'
+			}
+		// getTokenLogin();  // plus besoin car checkUserLogged() appel getTokenLogin()
+		// getErrorLogin();
 	}
 }
 
@@ -216,8 +234,7 @@ function onDeviceReady() {
 	window.addEventListener("batterycritical", onBatteryCritical, false);
 	window.addEventListener("batterylow", onBatteryLow, false);
 	window.addEventListener("batterystatus", onBatteryStatus, false);
-	// document.addEventListener("menubutton", onMenuKeyDown, false);
-	saveOnDevice();
+	saveOnDevice(false);
 }
     // Update DOM on a Received Event
 function receivedEvent(id) {
@@ -275,6 +292,15 @@ function checkConnection() {
 }
 	
 function updateSnapper() {
+	// myScroll = new IScroll('#content', {
+		// scrollbars: true,
+		// mouseWheel: true,
+		// interactiveScrollbars: true,
+		// shrinkScrollbars: 'scale',
+		// fadeScrollbars: true
+	// });
+	// // myScroll = new IScroll('#content');
+	// document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 	snapper = new Snap({
 		element: document.getElementById('content'),
 		disable: 'right',
@@ -282,20 +308,6 @@ function updateSnapper() {
 	});
 	document.addEventListener("menubutton", onMenuKeyDown, false);
 }
-
-
-//previus in demo.js but not work ??
-// var addEvent = function addEvent(element, eventName, func) {
-	// if (element.addEventListener) {
-    	// return element.addEventListener(eventName, func, false);
-    // } else if (element.attachEvent) {
-        // return element.attachEvent("on" + eventName, func);
-    // }
-// };
-
-// addEvent(document.getElementById('open-left'), 'click', function(){
-	// snapper.open('left');
-// });
 
 /* Prevent Safari opening links when viewing as a Mobile App */
 (function (a, b, c) {
