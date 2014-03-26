@@ -9,7 +9,7 @@ var menu1 = [
 {href: 'reservation.html', innerHTML: '<img src="img/ico_info.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; R&eacute;server', start: '3', cur: '3'},
 {href: 'myReservation.html', innerHTML: '<img src="img/ico_info.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Mes r&eacute;servations', start: '4', cur: '4'},
 {href: 'contact.html', innerHTML: '<img src="img/ico_info.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Contact', start: '5', cur: '5'},
-{href: 'settings.html', innerHTML: '<img src="img/ico_info.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Param&egrave;tres', start: '6', cur: '6'}
+//{href: 'settings.html', innerHTML: '<img src="img/ico_info.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Param&egrave;tres', start: '6', cur: '6'}
 // {href: 'hyperextend.html', innerHTML: 'Hyperextension Disabled', start: '6', cur: '6'},
 // {href: 'skinnyThreshold.html', innerHTML: 'Skinny Threshold', start: '7', cur: '7'},
 // {href: 'toggles.html', innerHTML: 'Toggles', start: '8', cur: '8'},

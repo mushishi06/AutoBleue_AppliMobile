@@ -7,8 +7,13 @@ The application download is averable on "https://build.phonegap.com/apps/576646/
 
 =============
 
-p>Change Log v0.2.00 (Mars 26, 2014):
+
+<p>Change Log v0.2.01 (Mars 26, 2014):
 <ul>
+    <li>"improved"stability"</li>
+</ul></p>
+
+<p><ul>
     <li>"application stable"</li>
 	<li>"Logout if reload appli"</li>
 	<li>"amelioration du settings"</li>
