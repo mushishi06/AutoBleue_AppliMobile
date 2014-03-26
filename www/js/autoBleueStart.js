@@ -223,7 +223,7 @@ function onLoad() {
     // 'load', 'deviceready', 'offline', and 'online'.
 function bindEvents() {
 	document.addEventListener('deviceready', onDeviceReady, false);
-	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+	// document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 }
     // deviceready Event Handler
     // The scope of 'this' is the event. In order to call the 'receivedEvent'

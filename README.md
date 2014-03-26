@@ -7,6 +7,10 @@ The application download is averable on "https://build.phonegap.com/apps/576646/
 
 =============
 
+<p>Change Log v0.2.02 (Mars 26, 2014):
+<ul>
+    <li>"correction bug scroll"</li>
+</ul></p>
 
 <p>Change Log v0.2.01 (Mars 26, 2014):
 <ul>
